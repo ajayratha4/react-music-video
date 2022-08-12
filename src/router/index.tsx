@@ -2,6 +2,7 @@
 
 import { RouteObject } from "react-router-dom";
 import About from "screen/About";
+import NotFound from "screen/Error/NotFound";
 import Home from "screen/Home";
 import Music from "screen/Music";
 import Album from "screen/Music/Album";
@@ -17,6 +18,10 @@ import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 
 export const routesConfig: RouteObject[] = [
+  {
+    element: <NotFound />,
+    path: "*",
+  },
   {
     element: <PublicRoute />,
     children: [
@@ -66,7 +71,7 @@ export const routesConfig: RouteObject[] = [
         element: <MyMusic />,
       },
       {
-        path: "/music/video",
+        path: "/video",
         element: <Video />,
       },
       {

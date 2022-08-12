@@ -1,5 +1,6 @@
 import { SvgIconComponent } from "@mui/icons-material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 
 export type SidebarSubmenu = {
   id: number;
@@ -11,7 +12,7 @@ export type SidebarSubmenu = {
 export type SidebarItem = {
   id: number;
   name: string;
-  path: string;
+  path?: string;
   submenu?: SidebarSubmenu[];
 };
 
@@ -59,8 +60,9 @@ export const sidebar: SidebarItem[] = [
   {
     id: 1,
     name: "Video",
-    path: "/video",
-    submenu: [{ id: 110, name: "All", icon: MusicNoteIcon }],
+    submenu: [
+      { path: "/video", id: 110, name: "All", icon: OndemandVideoIcon },
+    ],
   },
   {
     id: 1,
