@@ -1,19 +1,11 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { RoutesItem } from "./const";
+import { Outlet } from "react-router-dom";
 import ApplicationLayout from "Layouts/ApplicationLayout";
 
-type Props = {
-  routItem: RoutesItem;
-};
-
-const PublicRoute = ({ routItem }: Props) => {
-  const Component = routItem.component;
+const PublicRoute = () => {
   return (
-    <ApplicationLayout title={routItem.title}>
-      <Routes>
-        <Route path={routItem.path} element={<Component />} />
-      </Routes>
+    <ApplicationLayout>
+      <Outlet />
     </ApplicationLayout>
   );
 };

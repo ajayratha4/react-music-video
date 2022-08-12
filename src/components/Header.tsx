@@ -2,14 +2,21 @@ import React from "react";
 import { AppBar, Box, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { setSidebar, SettingsSlice } from "redux/settings";
 
 type Props = {
   title: string;
-  isSidebarOpen: boolean;
-  handleSidebar: () => void;
 };
 
-const Header = ({ title, isSidebarOpen, handleSidebar }: Props) => {
+const Header = ({ title }: Props) => {
+  const dispatch = useDispatch();
+  const isSidebarOpen = useSelector(
+    (state: SettingsSlice) => state.settings.sidebar
+  );
+  const handleSidebar = () => {
+    dispatch(setSidebar(!isSidebarOpen));
+  };
   return (
     <AppBar sx={{ height: 1 }} position="static">
       <Box display="flex" alignItems="center">

@@ -1,39 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@mui/material";
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
+import { useSelector } from "react-redux";
+import { SettingsSlice } from "redux/settings";
 
 type Props = {
-  title: string;
   children: JSX.Element;
 };
 
-const ApplicationLayout = ({ title, children }: Props) => {
-  const [isSidebarOpen, isSetsidebarOpen] = useState(false);
-  const handleSidebar = () => {
-    isSetsidebarOpen((previousValue) => !previousValue);
-  };
+const ApplicationLayout = ({ children }: Props) => {
+  const isSidebarOpen = useSelector(
+    (state: SettingsSlice) => state.settings.sidebar
+  );
+
   return (
     <Box height="100%">
       <Box height="60px">
-        <Header
-          title={title}
-          handleSidebar={handleSidebar}
-          isSidebarOpen={isSidebarOpen}
-        />
+        <Header title={"Home"} />
       </Box>
 
-      <Box display="flex" height="calc(100% - 60px)">
+      <Box
+        style={{
+          height: "calc(100% - 60px)",
+          display: "flex",
+        }}
+      >
         {isSidebarOpen && (
           <Box
             width="15%"
             height="100%"
-            sx={{ borderRight: 1, borderColor: "divider" }}
+            sx={{ borderRight: 1, borderColor: "divider", overflow: "auto" }}
           >
             <Sidebar />
           </Box>
         )}
-        <Box width={isSidebarOpen ? "85%" : "100%"} p={1}>
+        <Box
+          sx={{ overflow: "auto" }}
+          width={isSidebarOpen ? "85%" : "100%"}
+          p={1}
+        >
           {children}
         </Box>
       </Box>
