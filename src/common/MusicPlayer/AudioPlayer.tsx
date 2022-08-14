@@ -12,11 +12,13 @@ import Forward10Icon from "@mui/icons-material/Forward10";
 import CloseIcon from "@mui/icons-material/Close";
 
 type AudioPlayerProps = {
-  handlefullScreen: ()=>void;
-  handleMusicPlayer: ()=>void;
+  onPlay: () => void;
+  handlefullScreen: () => void;
+  handleMusicPlayer: () => void;
 };
 
 const AudioPlayer = ({
+  onPlay,
   handlefullScreen,
   handleMusicPlayer,
 }: AudioPlayerProps) => {
@@ -83,7 +85,7 @@ const AudioPlayer = ({
             <IconButton>
               <FastRewindRounded />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={onPlay}>
               <PlayArrowRounded sx={{ fontSize: 50 }} />
             </IconButton>
             <IconButton>
