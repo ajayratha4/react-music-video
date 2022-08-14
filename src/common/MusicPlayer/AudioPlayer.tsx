@@ -12,8 +12,8 @@ import Forward10Icon from "@mui/icons-material/Forward10";
 import CloseIcon from "@mui/icons-material/Close";
 
 type AudioPlayerProps = {
-  handlefullScreen: any;
-  handleMusicPlayer: any;
+  handlefullScreen: ()=>void;
+  handleMusicPlayer: ()=>void;
 };
 
 const AudioPlayer = ({

@@ -1,4 +1,3 @@
-import grey from "./shared/grey";
 
 const light = {
   common: {
