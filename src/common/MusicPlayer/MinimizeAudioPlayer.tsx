@@ -2,6 +2,7 @@ import React from "react";
 import VolumePopover from "./VolumePopover";
 import { Box, IconButton, Slider, Typography } from "@mui/material";
 import PlayArrowRounded from "@mui/icons-material/PlayArrowRounded";
+import PauseIcon from "@mui/icons-material/Pause";
 import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
 import FastRewindRounded from "@mui/icons-material/FastRewindRounded";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -10,18 +11,50 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import Replay10Icon from "@mui/icons-material/Replay10";
 import Forward10Icon from "@mui/icons-material/Forward10";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { AudioSlice, changeSong, SongList } from "./audioSlice";
 
-type AudioPlayerProps = {
+type MinimizeAudioPlayerProps = {
   onPlay: () => void;
   handlefullScreen: () => void;
   handleMusicPlayer: () => void;
+  isPlaying: boolean;
+  currentPlaybackPercentage: number;
+  handlePlaybackPosition: (arg: number) => void;
+  currentPlayback: { currentTime: number; duration: number };
+  handleVolume: (arg: number) => void;
+  resetAudioPlayer: () => void;
+  songDetails: SongList;
 };
 
-const AudioPlayer = ({
+const MinimizeAudioPlayer = ({
+  songDetails,
+  currentPlayback,
+  handlePlaybackPosition,
+  currentPlaybackPercentage,
   onPlay,
   handlefullScreen,
   handleMusicPlayer,
-}: AudioPlayerProps) => {
+  isPlaying,
+  handleVolume,
+  resetAudioPlayer,
+}: MinimizeAudioPlayerProps) => {
+  const dispatch = useDispatch();
+  const songsList = useSelector((state: AudioSlice) => state.audio.songsList);
+
+  const songsIndex = useSelector(
+    (state: AudioSlice) => state.audio.currentIndex
+  );
+
+  const handlePositionChange = (event: Event, newValue: number | number[]) => {
+    handlePlaybackPosition(newValue as number);
+  };
+
+  const handleSongs = (index: number) => {
+    resetAudioPlayer();
+    dispatch(changeSong(index));
+  };
+
   return (
     <Box
       width="100%"
@@ -48,8 +81,8 @@ const AudioPlayer = ({
           <Box>
             <img
               style={{ width: "80px", height: "100%", borderRadius: "50%" }}
-              src="https://a10.gaanacdn.com/gn_img/albums/Oxd3xP3gVY/d3xzp1kqbg/size_l.jpg"
-              alt="Girl in a jacket"
+              src={songDetails.img}
+              alt={songDetails.name}
             />
           </Box>
           <Box>
@@ -59,13 +92,11 @@ const AudioPlayer = ({
                 color="text.secondary"
                 fontWeight={500}
               >
-                Jun Pulse
+                {songDetails.name}
               </Typography>
-              <Typography noWrap>
-                <b>คนเก่าเขาทำไว้ดี (Can&apos;t win)</b>
-              </Typography>
+              <Typography noWrap>{songDetails.name}</Typography>
               <Typography noWrap letterSpacing={-0.25}>
-                Chilling Sunday &mdash; คนเก่าเขาทำไว้ดี
+                {songDetails.name}
               </Typography>
             </Box>
           </Box>
@@ -82,13 +113,23 @@ const AudioPlayer = ({
             <IconButton>
               <Replay10Icon />
             </IconButton>
-            <IconButton>
+            <IconButton
+              disabled={songsIndex === 0}
+              onClick={() => handleSongs(songsIndex - 1)}
+            >
               <FastRewindRounded />
             </IconButton>
             <IconButton onClick={onPlay}>
-              <PlayArrowRounded sx={{ fontSize: 50 }} />
+              {isPlaying ? (
+                <PauseIcon sx={{ fontSize: 50 }} />
+              ) : (
+                <PlayArrowRounded sx={{ fontSize: 50 }} />
+              )}
             </IconButton>
-            <IconButton>
+            <IconButton
+              disabled={songsList.length === songsIndex + 1}
+              onClick={() => handleSongs(songsIndex + 1)}
+            >
               <FastForwardRounded />
             </IconButton>
             <IconButton>
@@ -97,7 +138,21 @@ const AudioPlayer = ({
           </Box>
         </Box>
         <Box width="35%">
-          <Slider size="small" defaultValue={70} />
+          <Slider
+            value={currentPlaybackPercentage}
+            onChange={handlePositionChange}
+            size="small"
+            defaultValue={70}
+          />
+          <Box display="flex" justifyContent="space-between">
+            <Typography sx={{ fontSize: 10 }}>
+              {currentPlayback.currentTime}
+            </Typography>
+
+            <Typography sx={{ fontSize: 10 }}>
+              {currentPlayback.duration}
+            </Typography>
+          </Box>
         </Box>
         <Box display="flex" height="100%">
           <Box
@@ -107,7 +162,7 @@ const AudioPlayer = ({
               justifyContent: "center",
             }}
           >
-            <VolumePopover />
+            <VolumePopover handleVolume={handleVolume} />
 
             <IconButton>
               <FavoriteBorderIcon />
@@ -130,4 +185,4 @@ const AudioPlayer = ({
   );
 };
 
-export default AudioPlayer;
+export default MinimizeAudioPlayer;

@@ -1,11 +1,16 @@
 import { Box } from "@mui/system";
 import React from "react";
+import { SongList } from "./audioSlice";
 
 type FullScreenAudioPlayerProps = {
   onPlay: () => void;
+  songDetails: SongList;
 };
 
-const FullScreenAudioPlayer = ({ onPlay }: FullScreenAudioPlayerProps) => {
+const FullScreenAudioPlayer = ({
+  songDetails,
+  onPlay,
+}: FullScreenAudioPlayerProps) => {
   return (
     <Box
       sx={{
@@ -15,7 +20,7 @@ const FullScreenAudioPlayer = ({ onPlay }: FullScreenAudioPlayerProps) => {
       }}
       onClick={onPlay}
     >
-      FullScreenAudioPlayer
+      {songDetails.name}
     </Box>
   );
 };
