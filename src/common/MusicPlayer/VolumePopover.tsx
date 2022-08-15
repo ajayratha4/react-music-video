@@ -2,13 +2,18 @@ import React, { MouseEvent, useState } from "react";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeDownIcon from "@mui/icons-material/VolumeDown";
 import { IconButton, Paper, Popper, Slider } from "@mui/material";
+import { useSelector } from "react-redux";
+import { AudioSlice } from "./audioSlice";
 
-const VolumePopover = () => {
-  const [volumeValue, setSolumeValue] = useState(30);
+type Props = {
+  handleVolume: (arg: number) => void;
+};
+const VolumePopover = ({ handleVolume }: Props) => {
+  const volumeValue = useSelector((state: AudioSlice) => state.audio.volume);
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = () => {
-    setSolumeValue(volumeValue ? 0 : 30);
+    handleVolume(volumeValue ? 0 : 30);
   };
 
   const handleMouseEnter = (event: MouseEvent<HTMLButtonElement>) => {
@@ -20,7 +25,7 @@ const VolumePopover = () => {
   };
 
   const handleChange = (event: Event, newValue: number | number[]) => {
-    setSolumeValue(newValue as number);
+    handleVolume(newValue as number);
   };
 
   return (

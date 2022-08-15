@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { isEmptyArray } from "common/utils/array";
+import { isEmptyArray } from "utils/array";
 import { useNavigate } from "react-router-dom";
 import { sidebar } from "./const";
 
