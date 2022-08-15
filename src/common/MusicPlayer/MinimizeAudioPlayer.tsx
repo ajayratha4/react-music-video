@@ -76,6 +76,7 @@ const MinimizeAudioPlayer = ({
         <Box
           onClick={handlefullScreen}
           display="flex"
+          gap={1}
           sx={{ cursor: "pointer" }}
         >
           <Box>
@@ -85,20 +86,21 @@ const MinimizeAudioPlayer = ({
               alt={songDetails.name}
             />
           </Box>
-          <Box>
-            <Box sx={{ ml: 1.5, minWidth: 0 }}>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                fontWeight={500}
-              >
-                {songDetails.name}
-              </Typography>
-              <Typography noWrap>{songDetails.name}</Typography>
-              <Typography noWrap letterSpacing={-0.25}>
-                {songDetails.name}
-              </Typography>
-            </Box>
+          <Box
+            width="20vw"
+            sx={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            <Typography color="text.secondary" fontWeight={500}>
+              {songDetails.name}
+            </Typography>
+            <Typography noWrap>{songDetails.name}</Typography>
+            <Typography noWrap letterSpacing={-0.25}>
+              {songDetails.name}
+            </Typography>
           </Box>
         </Box>
 
