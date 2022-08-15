@@ -41,7 +41,12 @@ const VolumePopover = ({ handleVolume }: Props) => {
       onMouseLeave={handleMouseLeave}
     >
       {volumeValue ? <VolumeDownIcon /> : <VolumeOffIcon />}
-      <Popper open={Boolean(anchorEl)} anchorEl={anchorEl} placement={"top"}>
+      <Popper
+        sx={{ zIndex: "tooltip" }}
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        placement={"top"}
+      >
         <Paper
           onClick={(event) => event.stopPropagation()}
           sx={{ display: "flex", flexDirection: "column-reverse" }}

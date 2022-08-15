@@ -5,13 +5,13 @@ import About from "screen/About";
 import NotFound from "screen/Error/NotFound";
 import Home from "screen/Home";
 import Music from "screen/Music";
-import Album from "screen/Music/Album";
+// import Album from "screen/Music/Album";
 import AllMusic from "screen/Music/AllMusic";
-import Channel from "screen/Music/Channel";
-import MyMusic from "screen/Music/MyMusic";
-import NewSongs from "screen/Music/NewSongs";
-import OldSongs from "screen/Music/OldSongs";
-import TrendingSongs from "screen/Music/TrendingSongs";
+// import Channel from "screen/Music/Channel";
+// import MyMusic from "screen/Music/MyMusic";
+// import NewSongs from "screen/Music/NewSongs";
+// import OldSongs from "screen/Music/OldSongs";
+// import TrendingSongs from "screen/Music/TrendingSongs";
 import Profile from "screen/Profile";
 import Video from "screen/Video";
 import PrivateRoute from "./PrivateRoute";
@@ -46,30 +46,55 @@ export const routesConfig: RouteObject[] = [
         path: "/music/all-music",
         element: <AllMusic />,
       },
+      //needs
       {
         path: "/music/trending-songs",
-        element: <TrendingSongs />,
+        element: <AllMusic />,
       },
       {
         path: "/music/new-songs",
-        element: <NewSongs />,
+        element: <AllMusic />,
       },
       {
         path: "/music/old-songs",
-        element: <OldSongs />,
+        element: <AllMusic />,
       },
       {
         path: "/music/channel",
-        element: <Channel />,
+        element: <AllMusic />,
       },
       {
         path: "/music/album",
-        element: <Album />,
+        element: <AllMusic />,
       },
       {
         path: "/music/my-music",
-        element: <MyMusic />,
+        element: <AllMusic />,
       },
+      // {
+      //   path: "/music/trending-songs",
+      //   element: <TrendingSongs />,
+      // },
+      // {
+      //   path: "/music/new-songs",
+      //   element: <NewSongs />,
+      // },
+      // {
+      //   path: "/music/old-songs",
+      //   element: <OldSongs />,
+      // },
+      // {
+      //   path: "/music/channel",
+      //   element: <Channel />,
+      // },
+      // {
+      //   path: "/music/album",
+      //   element: <Album />,
+      // },
+      // {
+      //   path: "/music/my-music",
+      //   element: <MyMusic />,
+      // },
       {
         path: "/video",
         element: <Video />,

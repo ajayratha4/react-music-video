@@ -63,6 +63,7 @@ const MinimizeAudioPlayer = ({
       alignItems="center"
       justifyContent="center"
       height="100%"
+      position="relative"
       px={1}
     >
       <Box
@@ -176,7 +177,7 @@ const MinimizeAudioPlayer = ({
               <QueueMusicIcon />
             </IconButton>
           </Box>
-          <Box>
+          <Box position="absolute" top="0" right="5px">
             <IconButton onClick={handleMusicPlayer} sx={{ p: 0 }}>
               <CloseIcon sx={{ fontSize: 15 }} />
             </IconButton>

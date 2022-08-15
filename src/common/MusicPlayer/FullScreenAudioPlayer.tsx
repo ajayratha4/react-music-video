@@ -13,6 +13,7 @@ import Replay10Icon from "@mui/icons-material/Replay10";
 import Forward10Icon from "@mui/icons-material/Forward10";
 import { useDispatch, useSelector } from "react-redux";
 import VolumePopover from "./VolumePopover";
+import HorizontalMusicCard from "common/MusicCards/HorizontalMusicCard";
 
 type FullScreenAudioPlayerProps = {
   onPlay: () => void;
@@ -54,7 +55,7 @@ const FullScreenAudioPlayer = ({
   return (
     <Box height="100%" display="flex" gap={1}>
       <Box
-        width="50%"
+        width="65%"
         height="100%"
         display="flex"
         alignItems="center"
@@ -63,22 +64,19 @@ const FullScreenAudioPlayer = ({
         flexDirection="column"
       >
         <img
-          style={{ width: "65%", height: "65%", borderRadius: "10%" }}
+          style={{ width: "55%", height: "65%", borderRadius: "10%" }}
           src={songDetails.songImage}
           alt={songDetails.songName}
         />
 
         <Box>
-          <Typography color="text.secondary" fontWeight={500}>
-            {songDetails.songName}
-          </Typography>
-          <Typography noWrap>{songDetails.songArtist}</Typography>
-          <Typography noWrap letterSpacing={-0.25}>
-            {songDetails.songName}
+          <Typography fontWeight={500}>{songDetails.songName}</Typography>
+          <Typography color="text.secondary">
+            {songDetails.songArtist}
           </Typography>
         </Box>
 
-        <Box width="65%">
+        <Box width="60%">
           <Slider
             value={currentPlaybackPercentage}
             onChange={handlePositionChange}
@@ -102,6 +100,11 @@ const FullScreenAudioPlayer = ({
             justifyContent: "center",
           }}
         >
+          <VolumePopover handleVolume={handleVolume} />
+
+          <IconButton>
+            <FavoriteBorderIcon />
+          </IconButton>
           <IconButton>
             <Replay10Icon />
           </IconButton>
@@ -127,19 +130,6 @@ const FullScreenAudioPlayer = ({
           <IconButton>
             <Forward10Icon />
           </IconButton>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <VolumePopover handleVolume={handleVolume} />
-
-          <IconButton>
-            <FavoriteBorderIcon />
-          </IconButton>
           <IconButton>
             <ReplayIcon />
           </IconButton>
@@ -148,7 +138,18 @@ const FullScreenAudioPlayer = ({
           </IconButton>
         </Box>
       </Box>
-      <Box width="50%" height="100%" border="1px solid yellow"></Box>
+      <Box width="30%" height="100%" overflow="auto">
+        {songsList?.map((item, index) => (
+          <Box key={item.id} m={2}>
+            <HorizontalMusicCard
+              handleonClick={() => handleSongs(index)}
+              songArtist={item.songArtist}
+              songName={item.songName}
+              songImage={item.songImage}
+            />
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 };
