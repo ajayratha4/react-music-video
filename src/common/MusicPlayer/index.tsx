@@ -91,18 +91,18 @@ const MusicPlayer = () => {
   };
 
   const handleOnPlayStartedOrPaused = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play();
-      setIsPlaying(true);
+    if (audioRef?.current?.duration) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play();
+        setIsPlaying(true);
+      }
     }
   };
 
   const handleOnSongEnded = () => {
-    // setIsPlaying(false);
-    // audioRef.current.play();
     if (songsList.length != songsIndex + 1) {
       dispatch(changeSong(songsIndex + 1));
     } else {
@@ -113,10 +113,20 @@ const MusicPlayer = () => {
   return (
     <Box display="flex" width="100%">
       {modal ? (
-        <Modal showFooter={false} fullScreen handleClose={handleClose}>
+        <Modal
+          header={songsList[songsIndex].songName}
+          fullScreen
+          handleClose={handleClose}
+        >
           <FullScreenAudioPlayer
             songDetails={songsList[songsIndex]}
+            handleVolume={handleVolume}
+            currentPlayback={currentPlayback}
+            currentPlaybackPercentage={currentPlaybackPercentage}
+            handlePlaybackPosition={handlePlaybackPosition}
             onPlay={handleOnPlayStartedOrPaused}
+            isPlaying={isPlaying}
+            resetAudioPlayer={resetAudioPlayer}
           />
         </Modal>
       ) : (
@@ -138,7 +148,7 @@ const MusicPlayer = () => {
           ref={audioRef}
           preload={"metadata"}
           onLoadedData={onLoadedData}
-          src={songsList[songsIndex].src}
+          src={songsList[songsIndex]?.songSource}
           onTimeUpdate={onDurationChange}
           onEnded={handleOnSongEnded}
         />

@@ -10,7 +10,7 @@ export type SettingsSlice = {
 };
 const initialState: SettingsSliceState = {
   sidebar: false,
-  audioPlayer: true,
+  audioPlayer: false,
   modal: false,
 };
 

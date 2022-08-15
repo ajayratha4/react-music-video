@@ -25,15 +25,14 @@ instance.interceptors.request.use(
   }
 );
 
-// instance.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-
-//     return Promise.reject(
-//       error.response && error.response.data ? error.response.data : error
-//     );
-//   }
-// );
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    return Promise.reject(
+      error.response && error.response.data ? error.response.data : error
+    );
+  }
+);
 export const Axios = instance;

@@ -82,11 +82,14 @@ const MinimizeAudioPlayer = ({
           <Box>
             <img
               style={{ width: "80px", height: "100%", borderRadius: "50%" }}
-              src={songDetails.img}
-              alt={songDetails.name}
+              src={songDetails.songImage}
+              alt={songDetails.songName}
             />
           </Box>
           <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
             width="20vw"
             sx={{
               whiteSpace: "nowrap",
@@ -94,12 +97,9 @@ const MinimizeAudioPlayer = ({
               textOverflow: "ellipsis",
             }}
           >
-            <Typography color="text.secondary" fontWeight={500}>
-              {songDetails.name}
-            </Typography>
-            <Typography noWrap>{songDetails.name}</Typography>
-            <Typography noWrap letterSpacing={-0.25}>
-              {songDetails.name}
+            <Typography fontWeight={500}>{songDetails.songName}</Typography>
+            <Typography color="text.secondary">
+              {songDetails.songArtist}
             </Typography>
           </Box>
         </Box>

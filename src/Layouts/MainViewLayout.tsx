@@ -5,11 +5,14 @@ import { useSelector } from "react-redux";
 import { SettingsSlice } from "redux/settings";
 import { routesConfig } from "router";
 import { useRoutes } from "react-router-dom";
+import { AudioSlice } from "common/MusicPlayer/audioSlice";
 
 const MainViewLayout = () => {
   const audioPlayer = useSelector(
     (state: SettingsSlice) => state.settings.audioPlayer
   );
+  const songsList = useSelector((state: AudioSlice) => state.audio.songsList);
+
   const routes = useRoutes(routesConfig);
 
   return (
@@ -24,7 +27,7 @@ const MainViewLayout = () => {
       }}
     >
       <Box height={audioPlayer ? "calc(100% - 100px)" : "100%"}>{routes}</Box>
-      {audioPlayer && (
+      {audioPlayer && songsList.length > 0 && (
         <Paper
           elevation={10}
           sx={{

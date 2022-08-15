@@ -16,7 +16,7 @@ export const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const calcHeight = (header: boolean, footer: boolean) => {
+const calcHeight = (header: string, footer: string) => {
   if (header || footer) {
     const headerHeight = header ? 50 : 0;
     const footerHeight = footer ? 50 : 0;
@@ -30,13 +30,13 @@ type Props = {
   handleClose: () => void;
   children: React.ReactElement;
   fullScreen?: boolean;
-  showHeader?: boolean;
-  showFooter?: boolean;
+  header?: string;
+  footer?: string;
 };
 
 const Modal = ({
-  showHeader = true,
-  showFooter = true,
+  header = "",
+  footer = "",
   handleClose,
   children,
   ...rest
@@ -48,22 +48,23 @@ const Modal = ({
       onClose={handleClose}
       TransitionComponent={Transition}
     >
-      <Paper sx={{ height: 1, overflow: "auto", border: "5px solid yellow" }}>
-        {showHeader && (
+      <Paper sx={{ height: 1, overflow: "hidden" }}>
+        {header && (
           <Box
+            px={1}
             height="50px"
             display="flex"
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography>{"Use Google's location service?"}</Typography>
+            <Typography>{header}</Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
           </Box>
         )}
-        <Box height={calcHeight(showHeader, showFooter)}>{children}</Box>
-        {showFooter && (
+        <Box height={calcHeight(header, footer)}>{children}</Box>
+        {footer && (
           <Box
             height="50px"
             display="flex"
