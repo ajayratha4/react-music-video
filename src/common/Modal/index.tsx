@@ -3,14 +3,7 @@ import Dialog from "@mui/material/Dialog";
 
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  IconButton,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Button, IconButton, Paper, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/system";
 
