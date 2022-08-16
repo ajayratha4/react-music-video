@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSidebar, SettingsSlice } from "redux/settings";
 
 type Props = {
-  title: string;
+  title?: string;
 };
 
 const Header = ({ title }: Props) => {

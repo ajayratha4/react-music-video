@@ -17,7 +17,7 @@ const ApplicationLayout = ({ children }: Props) => {
   return (
     <Box height="100%">
       <Box height="60px">
-        <Header title={"Home"} />
+        <Header />
       </Box>
 
       <Box

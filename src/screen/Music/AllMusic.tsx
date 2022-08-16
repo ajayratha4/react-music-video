@@ -1,30 +1,29 @@
+import React from "react";
 import { Box } from "@mui/material";
-import { Axios } from "apis";
+import { useDispatch } from "react-redux";
+import useAxios from "apis/useAxios";
 import VerticalMusicCard from "common/MusicCards/VerticalMusicCard";
 import { setSonges, SongList } from "common/MusicPlayer/audioSlice";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { setAudioPlayer } from "redux/settings";
+import HorizontalSkeleton from "common/Skeleton/HorizontalSkeleton";
 
 const AllMusic = () => {
   const dispatch = useDispatch();
 
-  const [songList, setSongList] = useState<SongList[]>([]);
+  const { response, loading } = useAxios<SongList[]>("/songs", []);
 
   const handleAudioPlayer = (index: number) => {
     dispatch(setAudioPlayer(true));
-    dispatch(setSonges({ data: songList, index }));
+    dispatch(setSonges({ data: response, index }));
   };
 
-  useEffect(() => {
-    Axios.get<SongList[]>("/songs").then((res) => {
-      setSongList(res.data);
-    });
-  }, []);
+  if (loading) {
+    return <HorizontalSkeleton dummyArr={Array.from(Array(35).keys())} />;
+  }
 
   return (
     <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap">
-      {songList?.map((item, index) => (
+      {response?.map((item, index) => (
         <Box key={item.id}>
           <VerticalMusicCard
             handleonClick={() => handleAudioPlayer(index)}
