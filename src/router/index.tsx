@@ -1,9 +1,12 @@
 /* eslint-disable react/react-in-jsx-scope */
 
+import LoginContainer from "common/LoginContainer";
 import { RouteObject } from "react-router-dom";
 import About from "screen/About";
 import NotFound from "screen/Error/NotFound";
+import ForgotPassword from "screen/ForgotPassword";
 import Home from "screen/Home";
+import Login from "screen/Login";
 import Music from "screen/Music";
 // import Album from "screen/Music/Album";
 import AllMusic from "screen/Music/AllMusic";
@@ -13,9 +16,10 @@ import AllMusic from "screen/Music/AllMusic";
 // import OldSongs from "screen/Music/OldSongs";
 // import TrendingSongs from "screen/Music/TrendingSongs";
 import Profile from "screen/Profile";
+import Signup from "screen/Signup";
 import Video from "screen/Video";
 import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
+// import PublicRoute from "./PublicRoute";
 
 export const routesConfig: RouteObject[] = [
   {
@@ -23,7 +27,24 @@ export const routesConfig: RouteObject[] = [
     path: "*",
   },
   {
-    element: <PublicRoute />,
+    element: <LoginContainer />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+    ],
+  },
+  {
+    element: <PrivateRoute />,
     children: [
       {
         path: "/",
@@ -33,11 +54,6 @@ export const routesConfig: RouteObject[] = [
         path: "/about",
         element: <About />,
       },
-    ],
-  },
-  {
-    element: <PrivateRoute />,
-    children: [
       {
         path: "/music",
         element: <Music />,

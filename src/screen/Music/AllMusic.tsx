@@ -10,7 +10,7 @@ import HorizontalSkeleton from "common/Skeleton/HorizontalSkeleton";
 const AllMusic = () => {
   const dispatch = useDispatch();
 
-  const { response, loading } = useAxios<SongList[]>("/songs", []);
+  const { response = [], loading } = useAxios<SongList[]>("/songs");
 
   const handleAudioPlayer = (index: number) => {
     dispatch(setAudioPlayer(true));

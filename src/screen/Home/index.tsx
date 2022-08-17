@@ -6,11 +6,12 @@ import VerticalMusicCard from "common/MusicCards/VerticalMusicCard";
 import { setSonges, SongList } from "common/MusicPlayer/audioSlice";
 import { setAudioPlayer } from "redux/settings";
 import HorizontalSkeleton from "common/Skeleton/HorizontalSkeleton";
+import { Apis } from "apis/const";
 
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { response, loading } = useAxios<SongList[]>("/songs", []);
+  const { response = [], loading } = useAxios<SongList[]>(Apis.SongList);
 
   const handleAudioPlayer = (index: number) => {
     dispatch(setAudioPlayer(true));
