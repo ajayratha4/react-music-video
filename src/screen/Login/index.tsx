@@ -9,14 +9,22 @@ import {
   Box,
   Grid,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import useAxios from "apis/useAxios";
+import { Apis } from "apis/const";
+import { setUser } from "utils/localStorage";
+import { UserType } from "types";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    username: "",
+    userName: "",
     password: "",
   });
+
+  const { loading, refetch } = useAxios<UserType>(Apis.Login, { skip: true });
 
   const handleOnChange =
     (key: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,9 +34,18 @@ const Login = () => {
     };
 
   const handleSubmit = () => {
-    const { password, username } = formData;
-    console.log(password, username);
+    refetch({
+      params: formData,
+      onCompleted: (res) => {
+        setUser(res.id);
+        navigate("/");
+      },
+    });
   };
+
+  if (loading) {
+    <h1>loading</h1>;
+  }
 
   return (
     <Box
@@ -52,8 +69,8 @@ const Login = () => {
             <TextField
               required
               fullWidth
-              value={formData.username}
-              onChange={handleOnChange("username")}
+              value={formData.userName}
+              onChange={handleOnChange("userName")}
               label="User Name"
             />
           </Grid>

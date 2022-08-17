@@ -28,7 +28,7 @@ const Signup = () => {
     lastName: "",
     email: "",
     password: "",
-    username: "",
+    userName: "",
   });
 
   const handleOnChange =
@@ -39,10 +39,10 @@ const Signup = () => {
     };
 
   const handleSubmit = () => {
-    const { firstName, lastName, email, password, username } = formData;
+    const { firstName, lastName, email, password, userName } = formData;
 
     refetch({
-      body: { name: `${firstName} ${lastName}`, email, password, username },
+      body: { name: `${firstName} ${lastName}`, email, password, userName },
       onCompleted: (res: UserType) => {
         setUser(res.id);
         navigate("/");
@@ -95,8 +95,8 @@ const Signup = () => {
             <TextField
               required
               fullWidth
-              value={formData.username}
-              onChange={handleOnChange("username")}
+              value={formData.userName}
+              onChange={handleOnChange("userName")}
               label="User Name"
             />
           </Grid>

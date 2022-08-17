@@ -34,7 +34,6 @@ const useAxios = <InitialState>(
 
       if (apiBody) {
         const res = await Axios.post(path, apiBody);
-        debugger;
         setResponse(res?.data || []);
         if (onCompleted) {
           onCompleted(res?.data);
