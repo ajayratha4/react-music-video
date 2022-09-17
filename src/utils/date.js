@@ -1,5 +1,4 @@
 import moment from "moment";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import momentDurationFormatSetup from "moment-duration-format";
 
 export const getTimeInDurationFormat = (duration) => {
